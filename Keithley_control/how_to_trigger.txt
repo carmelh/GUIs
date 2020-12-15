@@ -1,0 +1,6 @@
+set sweep to custom  - on then off,
+set source delay = length you want to use
+set arm triggering to external/bus
+set trigger layer to immediate
+
+will output on off pulse on each trigger
