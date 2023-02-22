@@ -21,6 +21,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.browseButton.clicked.connect(self.getFolderPath)
+        self.analyseButton.clicked.connect(self.doAnalysis)
         self.closeButton.clicked.connect(self.closeEvent)
 
 #  user selects parent folder, i.e. the experiment day
@@ -28,6 +29,22 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         folder_path = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Folder')
         self.pathTextBox.setText(folder_path)
         return folder_path
+
+    
+# analysis
+    def doAnalysis(self): 
+        folder_path = self.pathTextBox.toPlainText()
+        if self.expComboBox.currentText() == "Current Clamp":
+            expParam = "cClamp"
+            ef.main(folder_path)
+            self.printNoteBox_top.setText("Finished")
+        elif self.expComboBox.currentText() == "Voltage Clamp":
+            expParam = "vClamp"
+            ef.main(folder_path)
+            self.printNoteBox_top.setText("Finished")
+        else: 
+            self.printNoteBox.setText("Select an experiment")   
+
 
     def closeEvent(self):
         self.close()
